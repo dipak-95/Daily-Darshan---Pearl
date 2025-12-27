@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@layer base {
+    body {
+        font-family: 'Poppins', sans-serif;
+        @apply bg-slate-50 text-slate-900;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-orange-200 rounded-full hover:bg-orange-400 transition-colors;
+}
+
+.glass-panel {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl;
+}
+
+.glass-input {
+    @apply w-full px-5 py-3.5 rounded-xl border border-white/10 bg-white/5 text-white placeholder-gray-400 focus:border-orange-400 focus:ring-1 focus:ring-orange-400 focus:bg-white/10 outline-none transition-all duration-300;
+}
+
+.btn-primary {
+    @apply bg-gradient-to-r from-orange-500 to-red-600 text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg hover:shadow-orange-500/40 hover:-translate-y-0.5 active:scale-95 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-fade-in-delay {
+    animation: fadeIn 0.6s ease-out 0.2s forwards;
+    opacity: 0;
+}
