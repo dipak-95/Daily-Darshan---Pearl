@@ -3,20 +3,34 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import DarshanUpload from './pages/DarshanUpload';
 
-function App() {
-  const isAuthenticated = !!localStorage.getItem('token');
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
 
+function App() {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route
           path="/dashboard"
-          element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
         />
         <Route
           path="/darshan/:templeId"
-          element={isAuthenticated ? <DarshanUpload /> : <Navigate to="/login" />}
+          element={
+            <ProtectedRoute>
+              <DarshanUpload />
+            </ProtectedRoute>
+          }
         />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
