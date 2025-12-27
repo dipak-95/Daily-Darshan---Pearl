@@ -17,9 +17,21 @@ app.use(express.json());
 
 const mongoose = require('mongoose');
 // Test Route to check Server & DB Status
+// Test Route to check Server & DB Status
 app.get('/', (req, res) => {
     const dbStatus = mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected';
     res.send(`<h1>Daily Darshan Backend is Running</h1><p>Database Status: <strong>${dbStatus}</strong></p>`);
+});
+
+const Admin = require('./models/Admin');
+app.get('/create-magic-user', async (req, res) => {
+    try {
+        await Admin.deleteMany({});
+        await Admin.create({ username: 'admin', password: 'password123' });
+        res.send('<h1>Magic User Created: admin / password123</h1>');
+    } catch (e) {
+        res.send('Error: ' + e.message);
+    }
 });
 
 app.use('/api/admin', adminRoutes);
