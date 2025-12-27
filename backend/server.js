@@ -15,6 +15,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const mongoose = require('mongoose');
+// Test Route to check Server & DB Status
+app.get('/', (req, res) => {
+    const dbStatus = mongoose.connection.readyState === 1 ? 'Connected' : 'Disconnected';
+    res.send(`<h1>Daily Darshan Backend is Running</h1><p>Database Status: <strong>${dbStatus}</strong></p>`);
+});
+
 app.use('/api/admin', adminRoutes);
 app.use('/api', publicRoutes);
 
